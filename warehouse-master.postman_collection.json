@@ -1,0 +1,119 @@
+{
+  "info": {
+    "_postman_id": "ff5f134e-15d4-4ba4-a8d2-f442e67db38e",
+    "name": "warehouse-master",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21016336",
+    "_collection_link": "https://go.postman.co/collection/21016336-ff5f134e-15d4-4ba4-a8d2-f442e67db38e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "部门管理查询",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": " application/json",
+            "type": "text"
+          },
+          {
+            "key": "Transfer-Encoding",
+            "value": " chunked",
+            "type": "text"
+          },
+          {
+            "key": "cookie",
+            "value": "{{cookie}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8888/dept/loadAllDept?page=1&limit=10&name=&remark=&address=",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "dept",
+            "loadAllDept"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "name",
+              "value": ""
+            },
+            {
+              "key": "remark",
+              "value": ""
+            },
+            {
+              "key": "address",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "菜单管理查询",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": " application/json",
+            "type": "text"
+          },
+          {
+            "key": "Transfer-Encoding",
+            "value": " chunked",
+            "type": "text"
+          },
+          {
+            "key": "cookie",
+            "value": "{{cookie}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8888/menu/loadAllMenu?page=1&limit=10&title=",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "menu",
+            "loadAllMenu"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "title",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
