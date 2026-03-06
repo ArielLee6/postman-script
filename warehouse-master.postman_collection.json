@@ -114,6 +114,191 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "部门管理部门数查询",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 解析响应体为 JSON\r",
+              "const responseData = pm.response.json();\r",
+              "\r",
+              "// 提取 value 值\r",
+              "const DeptMaxOrderNum = responseData.value;\r",
+              "\r",
+              "// 保存到环境变量或全局变量中\r",
+              "pm.environment.set(\"DeptMaxOrderNum\", DeptMaxOrderNum);\r",
+              "// 或使用全局变量：pm.globals.set(\"DeptMaxOrderNum\", DeptMaxOrderNum);\r",
+              "\r",
+              "// 可选：打印到控制台验证\r",
+              "console.log(\"提取的值：\", DeptMaxOrderNum);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": " application/json",
+            "type": "text"
+          },
+          {
+            "key": "Transfer-Encoding",
+            "value": " chunked",
+            "type": "text"
+          },
+          {
+            "key": "cookie",
+            "value": "{{cookie}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8888/dept/loadDeptMaxOrderNum",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "dept",
+            "loadDeptMaxOrderNum"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "部门新增",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// 获取当前时间\r",
+              "const now = new Date();\r",
+              "\r",
+              "// 生成 yyyymmdd 格式\r",
+              "const year = now.getFullYear();\r",
+              "const month = String(now.getMonth() + 1).padStart(2, '0');\r",
+              "const day = String(now.getDate()).padStart(2, '0');\r",
+              "const dateStr = `${year}${month}${day}`;  // 示例：20260306\r",
+              "\r",
+              "// 生成 yyyymmddHHMMSS 格式（到秒）\r",
+              "const hours = String(now.getHours()).padStart(2, '0');\r",
+              "const minutes = String(now.getMinutes()).padStart(2, '0');\r",
+              "const seconds = String(now.getSeconds()).padStart(2, '0');\r",
+              "const datetimeStr = `${dateStr}${hours}${minutes}${seconds}`;  // 示例：20260306151425\r",
+              "\r",
+              "// 保存为变量\r",
+              "pm.environment.set(\"date_yyyymmdd\", dateStr);\r",
+              "pm.environment.set(\"datetime_yyyymmddHHMMSS\", datetimeStr);\r",
+              "\r",
+              "// 可选：控制台输出验证\r",
+              "console.log(\"当前日期(yyyymmdd):\", dateStr);\r",
+              "console.log(\"当前时间(yyyymmddHHMMSS):\", datetimeStr);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": " application/json",
+            "type": "text"
+          },
+          {
+            "key": "Transfer-Encoding",
+            "value": " chunked",
+            "type": "text"
+          },
+          {
+            "key": "cookie",
+            "value": "{{cookie}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "pid",
+              "value": "6",
+              "type": "text"
+            },
+            {
+              "key": "deptTree_select_nodeId",
+              "value": "6",
+              "type": "text"
+            },
+            {
+              "key": "deptTree_select_input",
+              "value": "销售二部",
+              "type": "text"
+            },
+            {
+              "key": "id",
+              "value": "",
+              "type": "text"
+            },
+            {
+              "key": "name",
+              "value": "测试新增{{$timestamp}}",
+              "type": "text"
+            },
+            {
+              "key": "address",
+              "value": "{{date_yyyymmdd}}",
+              "type": "text"
+            },
+            {
+              "key": "remark",
+              "value": "{{datetime_yyyymmddHHMMSS}}",
+              "type": "text"
+            },
+            {
+              "key": "available",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "open",
+              "value": "0",
+              "type": "text"
+            },
+            {
+              "key": "ordernum",
+              "value": "{{DeptMaxOrderNum}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8888/dept/addDept",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "dept",
+            "addDept"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
