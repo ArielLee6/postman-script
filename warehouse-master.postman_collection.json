@@ -8,6 +8,70 @@
   },
   "item": [
     {
+      "name": "登录",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 查找包含 JSESSIONID 的 Set-Cookie\r",
+              "const allSetCookies = pm.response.headers.all().filter(h => h.key === \"Set-Cookie\");\r",
+              "const jsessionidHeader = allSetCookies.find(h => h.value.includes(\"JSESSIONID\"));\r",
+              "\r",
+              "if (jsessionidHeader) {\r",
+              "    const match = jsessionidHeader.value.match(/(JSESSIONID=[^;]+)/i);\r",
+              "    if (match && match[1]) {\r",
+              "        const cookie = match[1];\r",
+              "        pm.environment.set(\"auth_cookie\", cookie);\r",
+              "        console.log(\"✅ 提取的 Cookie:\", cookie);\r",
+              "    }\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "loginname",
+              "value": "system",
+              "type": "text"
+            },
+            {
+              "key": "pwd",
+              "value": "123456",
+              "type": "text"
+            },
+            {
+              "key": "code",
+              "value": "",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8888/login/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8888",
+          "path": [
+            "login",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "部门管理查询",
       "request": {
         "method": "GET",
@@ -24,7 +88,7 @@
           },
           {
             "key": "cookie",
-            "value": "{{cookie}}",
+            "value": "{{auth_cookie}}",
             "type": "text"
           }
         ],
@@ -82,7 +146,7 @@
           },
           {
             "key": "cookie",
-            "value": "{{cookie}}",
+            "value": "{{auth_cookie}}",
             "type": "text"
           }
         ],
@@ -226,7 +290,7 @@
           },
           {
             "key": "cookie",
-            "value": "{{cookie}}",
+            "value": "{{auth_cookie}}",
             "type": "text"
           }
         ],
